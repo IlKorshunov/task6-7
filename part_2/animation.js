@@ -3,7 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
         ['second_menu_radio_1', '#Вычисления'],
         ['second_menu_radio_2', '#Бизнес_приложения'],
         ['second_menu_radio_3', '#Базы_данных'],
-        ['second_menu_radio_4', '#ML_платформа']
+        ['second_menu_radio_4', '#ML_платформа'],
+        ['second_menu_radio_1_1', '#Консалтинг_и_проектные_услуги'],
+        ['second_menu_radio_2_1', '#Профессиональные_сервисы_и_аутсорсинг']
     ]);
 
     tableMap.forEach((tableId) => {
@@ -11,21 +13,25 @@ document.addEventListener('DOMContentLoaded', () => {
         if (table) table.style.display = 'none';
     });
 
-    const firstRadio = document.getElementById('second_menu_radio_1');
-    if (firstRadio && firstRadio.checked) {
-        const firstTableId = tableMap.get(firstRadio.id);
-        const firstTable = document.querySelector(`.white_2nd_menu_table${firstTableId}`);
-        if (firstTable) firstTable.style.display = 'block';
-    }
+    const firstRadios = ['second_menu_radio_1', 'second_menu_radio_1_1'];
+    firstRadios.forEach(radioId => {
+        const firstRadio = document.getElementById(radioId);
+        if (firstRadio && firstRadio.checked) {
+            const firstTableId = tableMap.get(firstRadio.id);
+            const firstTable = document.querySelector(`.white_2nd_menu_table${firstTableId}`);
+            if (firstTable) firstTable.style.display = 'block';
+        }
+    });
+
 
     button_radio.forEach(button => {
         button.addEventListener('change', () => {
             tableMap.forEach((tableId, radioId) => {
                 const table = document.querySelector(`.white_2nd_menu_table${tableId}`);
                 if (button.id === radioId && button.checked) {
-                    table.style.display = 'block'; 
+                    table.style.display = 'block';
                 } else {
-                    table.style.display = 'none'; 
+                    table.style.display = 'none';
                 }
             });
         });
@@ -73,15 +79,20 @@ const descriptionButtons = document.querySelectorAll('.white_2nd_menu_descriptio
 const descriptionButtonStates = new Map();
 
 descriptionButtons.forEach(button => {
-    descriptionButtonStates.set(button, false); 
+    descriptionButtonStates.set(button, false);
 });
 
-const firstButton = descriptionButtons[0];
-if (firstButton) {
-    firstButton.style.backgroundColor = 'black';
-    firstButton.style.color = 'white';
-    descriptionButtonStates.set(firstButton, true);  
+const firstButtons = [descriptionButtons[0], descriptionButtons[6]];
+if (firstButtons.length > 0) {
+    firstButtons.forEach(button => {
+        if (button) {
+            button.style.backgroundColor = 'black';
+            button.style.color = 'white';
+            descriptionButtonStates.set(button, true);
+        }
+    });
 }
+
 
 
 const handlerDescriptionButtons = {
@@ -129,7 +140,7 @@ descriptionButtons.forEach(button => {
 
         const isBlack = proxiedDescriptionButtonStates.get(button);
         proxiedDescriptionButtonStates.set(button, !isBlack);
-        
+
         button.removeEventListener('click', clickHandler);
         setTimeout(() => {
             button.addEventListener('click', clickHandler);
@@ -138,7 +149,7 @@ descriptionButtons.forEach(button => {
 
     button.addEventListener('mouseleave', () => {
         if (!proxiedDescriptionButtonStates.get(button)) {
-            button.style.backgroundColor = ''; 
+            button.style.backgroundColor = '';
         }
     });
 
@@ -162,7 +173,7 @@ const handler = {
                 console.log(buttonId)
                 console.log(subMenuId)
                 const subMenu = document.getElementById(subMenuId);
-                // const subMenu = document.querySelector('.white_2nd_menu');      
+                // const subMenu = document.querySelector('.white_2nd_menu');
                 if (subMenu) {
                     if (newValue) {
                         subMenu.classList.add('active');
