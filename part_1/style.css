@@ -58,15 +58,14 @@ body {
 first_menu - меню с выбором категории*/
 
 .all_menu {
-  display: flex;
-  flex-direction: column;
+  position: relative;
 }
 
 .center_menu {
   display: flex;
   align-items: center;
   gap: var(--spacing);
-  font-family: "cm", sans-serif; 
+  font-family: "cm", sans-serif;
 }
 
 .first_menu {
@@ -92,8 +91,8 @@ first_menu - меню с выбором категории*/
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-family: "r", sans-serif; 
-  transition: transform 0.2s ease-in-out; 
+  font-family: "r", sans-serif;
+  transition: transform 0.2s ease-in-out;
 }
 
 .black_mybutton {
@@ -113,13 +112,12 @@ first_menu - меню с выбором категории*/
 }
 
 .mybutton:hover {
-  transform: scale(1.05); 
+  transform: scale(1.05);
 }
 
 /* Меню с выбором продуктов, сервисов, партнеров */
 .main_menu {
   background-color: white;
-
   display: flex;
   flex-direction: row;
   padding: var(--spacing-half) 0px;
@@ -134,7 +132,7 @@ first_menu - меню с выбором категории*/
   display: flex;
   flex-direction: row;
   gap: var(--spacing-quator);
-  font-family: "cm", sans-serif; 
+  font-family: "cm", sans-serif;
 }
 
 .menu_label {
@@ -156,19 +154,19 @@ first_menu - меню с выбором категории*/
 /* поэтому я создал фиктивную кнопку */
 .main_menu_item .menu_radio:checked ~ .menu_label,
 .main_menu_item .menu_radio:checked ~ .menu_arrow svg {
-    color: red;   
+    color: red;
 }
 
 .main_menu_item .menu_radio:checked ~ .menu_label[for^="menu_"] {
-    display: none;  
+    display: none;
 }
 
 .main_menu_item .menu_radio:not(:checked) ~ .menu_label[for^="empty_menu_"] {
-    display: none;  
+    display: none;
 }
 
 .main_menu_item:hover {
-    color: red; 
+    color: red;
 }
 
 .grid_item:hover{
@@ -186,19 +184,24 @@ first_menu - меню с выбором категории*/
 }
 
 /* здесь открываю вложенное меню для кнопки Продукты */
-.all_menu:has(#menu_1:checked) .white_2nd_menu {
+.all_menu:has(#menu_1:checked) #menu_products,
+.all_menu:has(#menu_2:checked) #menu_services,
+.all_menu:has(#menu_6:checked) #menu_events,
+.all_menu:has(#menu_7:checked) #menu_support {
     display: flex;
     flex-direction: row;
     opacity: 1;
-    transform: translateY(0); 
     visibility: visible;
+    transform: translateY(0);
 }
 
-.all_menu:has(#menu_1:not(:checked)) .white_2nd_menu {
+.all_menu:has(#menu_1:not(:checked)) #menu_products,
+.all_menu:has(#menu_2:not(:checked)) #menu_services,
+.all_menu:has(#menu_6:not(:checked)) #menu_events,
+.all_menu:has(#menu_7:not(:checked)) #menu_support {
     display: flex;
     flex-direction: row;
 }
-
 
 /* Переключение между кнопками во вложенном меню */
 .white_2nd_menu:has(#second_menu_radio_1:checked)
@@ -241,18 +244,43 @@ first_menu - меню с выбором категории*/
   display: none;
 }
 
+
+
+.white_2nd_menu:has(#second_menu_radio_1_1:checked)
+  .white_2nd_menu_table#Консалтинг_и_проектные_услуги {
+  display: block;
+}
+
+.white_2nd_menu:has(#second_menu_radio_2_1:checked)
+  .white_2nd_menu_table#Профессиональные_сервисы_и_аутсорсинг {
+  display: block;
+}
+
+.white_2nd_menu:has(#second_menu_radio_1_1:not(:checked))
+  .white_2nd_menu_table#Консалтинг_и_проектные_услуги {
+  display: none;
+}
+
+.white_2nd_menu:has(#second_menu_radio_2_1:not(:checked))
+  .white_2nd_menu_table#Профессиональные_сервисы_и_аутсорсинг {
+  display: none;
+}
+
+
 .white_2nd_menu_description_item_button{
   display: none;
 }
 
+
 /* табличка с услугами в продуктах */
 .white_2nd_menu {
+  position: absolute;
   width: 100%;
   background-color: white;
   border-radius: 15px;
-  opacity: 0; 
-  transform: translateY(-10px); 
-  visibility: hidden; 
+  opacity: 0;
+  transform: translateY(-10px);
+  visibility: hidden;
   transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
 }
 
@@ -267,7 +295,13 @@ first_menu - меню с выбором категории*/
     align-items: center;
     border-radius: 15px;
 }
-  
+
+.white_2nd_menu_description_item_second {
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+}
+
 .second_menu_label {
   white-space: nowrap;
   width: 100%;
@@ -275,6 +309,12 @@ first_menu - меню с выбором категории*/
   border-radius: 10px;
   transition: background-color 0.3s, color 0.3s;
 }
+
+.new_title {
+    line-height: 1.5;
+    color: #3C4A52;
+  }
+
 
 .white_2nd_menu_description_item input:checked + .second_menu_label {
   background-color: black;
@@ -287,13 +327,13 @@ first_menu - меню с выбором категории*/
 }
 
 .white_2nd_menu_description_item label {
-    cursor: pointer; 
+    cursor: pointer;
 }
 
 .white_2nd_menu_table {
     padding: 20px;
 }
-  
+
 .white_2nd_menu_table h2 {
     font-size: 24px;
     margin-bottom: 20px;
@@ -302,7 +342,7 @@ first_menu - меню с выбором категории*/
 .grid_table {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 15px; 
+    gap: 15px;
 }
 
 .grid_item {
@@ -340,7 +380,7 @@ first_menu - меню с выбором категории*/
 
 .link{
   display: flex;
-  text-decoration: none; 
-  color: inherit; 
+  text-decoration: none;
+  color: inherit;
   gap: var(--spacing-half);
 }
